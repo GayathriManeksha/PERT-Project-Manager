@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+
+
+    <hr />
+    {%- for message in get_flashed_messages() %}
+    {{ message }}
+    {%- endfor %}
+
+    <h3>Nodes List</h3>
+    <form method="post">
+        <label for="edge">Edge</label><br>
+        <input type="text" name="edge" placeholder="Edge" /><br>
+        <table border="2" padding="5">
+            {% for node in nodes %}
+            <tr>
+                <td>
+                    <label class="checkbox">
+                        <input type="checkbox" name="edge_keys" value="{{node.nodename}}" />
+                    </label>
+                    <p>{{node.nodename}}</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+    <br><br>
+    <!-- <a href="{{ url_for('addNode') }}">Add New Employee</a> -->
+</body>
+
+</html>

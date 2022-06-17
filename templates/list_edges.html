@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+
+
+    <hr />
+    {%- for message in get_flashed_messages() %}
+    {{ message }}
+    {%- endfor %}
+
+    <h3>Nodes List</h3>
+    <table border="2" padding="5">
+        <thead>
+            <tr>
+                <th>Edge</th>
+                <th>Node-id</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for edge in edges %}
+            <tr>
+                <td>{{ edge.nodeid }}</td>
+                <td>{{ edge.edgename }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    <!-- <a href="{{ url_for('addNode') }}">Add New Employee</a> -->
+</body>
+
+</html>
