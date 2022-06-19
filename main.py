@@ -1,4 +1,3 @@
-import re
 from flask import Flask, request, flash, url_for, redirect, render_template  
 from flask_sqlalchemy import SQLAlchemy  
 from path import add_nodes,add_edges,critical_path
