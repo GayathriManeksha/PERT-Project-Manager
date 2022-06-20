@@ -8,6 +8,10 @@ from criticalpath import Node
 import plotly.express as px
 from IPython.display import Image , display
 from datetime import date
+import os
+
+if not os.path.exists("images"):
+    os.mkdir("images")
 
 # tasks = [("A", {"Duration": 3}), 
 #          ("B", {"Duration": 5}), 
@@ -20,11 +24,12 @@ def add_nodes(tasks,key,value):
     # item[key]={"Duration":value}
     tasks.append(item)
 
-# add_nodes("A",3)
-# add_nodes("B",5)
-# add_nodes("C",2)
-# add_nodes("D",3)
-# add_nodes("E",5)
+# add_nodes(tasks,"A",3)
+# add_nodes(tasks,"B",5)
+# add_nodes(tasks,"C",2)
+# add_nodes(tasks,"D",3)
+# add_nodes(tasks,"E",5)
+
 # set up the dependencies along all paths:
 # dependencies = [("A", "C"), 
 #                 ("B", "C"), 
@@ -37,13 +42,14 @@ def add_edges(dependencies,edge1,edge2):
     item=(edge1,edge2)
     dependencies.append(item)
 
-# add_edges("A","C")
-# add_edges("B","C")
-# add_edges("A","D")
-# add_edges("C","E")
-# add_edges("D","E")
+# add_edges(dependencies,"A","C")
+# add_edges(dependencies,"B","C")
+# add_edges(dependencies,"A","D")
+# add_edges(dependencies,"C","E")
+# add_edges(dependencies,"D","E")
 
-def critical_path(dependencies,tasks):
+
+def critical_path(crit_path,dependencies,tasks):
         # initialize (directed) graph
     G = nx.DiGraph() 
 
@@ -68,10 +74,9 @@ def critical_path(dependencies,tasks):
     # draw (write) the node attributes (duration)
     nx.draw_networkx_labels(G, pos=pos_attrs, labels=attrs)
 
-
+    plt.savefig("images/graph.png")
     # set a little margin (padding) for the graph so the labels are not cut off
     plt.margins(0.1)
-
 
     # initialize a "project":
     proj = Node('Project')
@@ -98,13 +103,26 @@ def critical_path(dependencies,tasks):
     print(">"*50)
     print(f"The current project duration is: {proj_duration} days")
 
+    # create a list of edges using the current critical path list:
+    crit_edges = [(n, crit_path[i+1]) for i, n in enumerate(crit_path[:-1])]
 
+    # first, recreate the network visualization:
+    nx.draw(G, with_labels=True, pos=pos_nodes, node_color='lightblue', arrowsize=20)
+    nx.draw_networkx_labels(G, pos=pos_attrs, labels=attrs)
 
+    # now add the critical path as an additional layer on top of the original graph:
+    nx.draw_networkx_edges(G, pos=pos_nodes, edgelist=crit_edges, width=10, alpha=0.5, edge_color='r')
+
+    # again, leaving some margin so the labels are not cut off
+    plt.margins(0.1)
+    print("Pls wait creating images......")
+    plt.savefig("images/cpgraph.png")
+    print("Images created successfully")
 
 #GANTT-CHART
 def gc(dependencies,crit_path):
     proj_startdate = date.today()
-
+    print("Proj start date",proj_startdate)
     proj_schedule = pd.DataFrame([dict(Task = key, 
                                     Start = datetime.date.today(), 
                                     Finish = datetime.date.today() + datetime.timedelta(val['Duration']), 
@@ -123,6 +141,12 @@ def gc(dependencies,crit_path):
             
     display(proj_schedule)
 
-# fig = px.timeline(proj_schedule, x_start="Start", x_end="Finish", y="Task", color="Status")
-# fig.update_yaxes(autorange="reversed") # otherwise tasks are listed from the bottom up
-#Image(fig.to_image(format="png"))
+    fig = px.timeline(proj_schedule, x_start="Start", x_end="Finish", y="Task", color="Status")
+    fig.update_yaxes(autorange="reversed") # otherwise tasks are listed from the bottom up
+    print("Hold on Finishing in a bit......")
+    fig.write_image("images/fig3.png")
+    # fig.show()
+    # Image(fig.to_image(format="png"))
+
+# critical_path(crit_path,dependencies,tasks)
+# gc(dependencies,crit_path)
