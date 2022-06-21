@@ -19,6 +19,7 @@
             <tr>
                 <th>Node</th>
                 <th>Duration</th>
+                <th>Description</th>
 
             </tr>
         </thead>
@@ -28,6 +29,7 @@
             <tr>
                 <td>{{ node.nodename }}</td>
                 <td>{{ node.duration }}</td>
+                <td>{{ node.task_descr}}</td>
             </tr>
             {% endfor %}
         </tbody>
