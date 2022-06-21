@@ -10,8 +10,8 @@ from IPython.display import Image , display
 from datetime import date
 import os
 
-if not os.path.exists("images"):
-    os.mkdir("images")
+if not os.path.exists("static/images"):
+    os.mkdir("static/images")
 
 # tasks = [("A", {"Duration": 3}), 
 #          ("B", {"Duration": 5}), 
@@ -58,23 +58,25 @@ def critical_path(crit_path,dependencies,tasks):
     G.add_edges_from(dependencies)
 
     # set up the (arbitrary) positions of the tasks (nodes):
-    pos_nodes = {"A": (1, 3), 
-                "B": (1, 1), 
-                "C": (2, 2), 
-                "D": (3, 3), 
-                "E": (4, 2)}
+    # pos_nodes = {"A": (1, 3), 
+    #             "B": (1, 1), 
+    #             "C": (2, 2), 
+    #             "D": (3, 3), 
+    #             "E": (4, 2)}
+
+    pos_nodes=nx.planar_layout(G)
 
     # draw the nodes
     nx.draw(G, with_labels=True, pos=pos_nodes, node_color='lightblue', arrowsize=20)
 
     # set up the (arbitrary) positions of the durations labels (attributes):
-    pos_attrs = {node:(coord[0], coord[1] + 0.2) for node, coord in pos_nodes.items()}
+    pos_attrs = {node:(coord[0]+0.1, coord[1]+0.01) for node, coord in pos_nodes.items()}
     attrs = nx.get_node_attributes(G, 'Duration')
 
     # draw (write) the node attributes (duration)
     nx.draw_networkx_labels(G, pos=pos_attrs, labels=attrs)
 
-    plt.savefig("images/graph.png")
+    plt.savefig("static/images/graph.jpg")
     # set a little margin (padding) for the graph so the labels are not cut off
     plt.margins(0.1)
 
@@ -116,7 +118,7 @@ def critical_path(crit_path,dependencies,tasks):
     # again, leaving some margin so the labels are not cut off
     plt.margins(0.1)
     print("Pls wait creating images......")
-    plt.savefig("images/cpgraph.png")
+    plt.savefig("static/images/cpgraph.jpg")
     print("Images created successfully")
 
 #GANTT-CHART
@@ -144,7 +146,7 @@ def gc(dependencies,crit_path):
     fig = px.timeline(proj_schedule, x_start="Start", x_end="Finish", y="Task", color="Status")
     fig.update_yaxes(autorange="reversed") # otherwise tasks are listed from the bottom up
     print("Hold on Finishing in a bit......")
-    fig.write_image("images/fig3.png")
+    fig.write_image("static/images/fig3.jpg")
     # fig.show()
     # Image(fig.to_image(format="png"))
 

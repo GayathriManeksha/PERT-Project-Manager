@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon"
+        href="https://st.depositphotos.com/1368414/3476/i/600/depositphotos_34768023-stock-photo-reach-out.jpg"
+        type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='CSS/home.css')}}"<head>signin</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="bg-image"></div>
+  <div class="container-fluid">
+    <div class="row no-gutter">
+        <!-- The image half -->
+        <div class="col-md-6 d-none d-md-flex bg-image"></div>
+        <!-- The content half -->
+       
+        <div class="col-md-6">
+            <!------------>
+                            <!-- A grey horizontal navbar that becomes vertical on small screens -->
+                            <nav class="navbar navbar-expand-sm justify-content-center fixed-top">
+
+                                <!-- Links -->
+                                <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Link 1</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Link 2</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Link 3</a>
+                                </li>
+                                </ul>
+                            
+                            </nav>
+                        <!--------------->
+           <!------<div class="login d-flex align-items-center py-5"> -->
+            <div class="d-flex justify-content-start py-5">
+
+                <!-- Demo content-->
+            
+            <div class="container">
+                    <!-- Image and text -->
+                    <div class="align-right" style="width: 80px; height:-100px;">           
+                    </div>
+
+                  <div class="align-self-baseline" style="height:500px;">
+                     <div class="row">
+                        <div class="col-lg-10 col-xl-7 mx-auto">
+
+                            <!----------pic-->
+                            <div class="mx-auto" style="width:65px;">  
+                                <img src="pic3.jpg" width="70" height="70" class="align-self-center">
+                                </div>
+                            
+                            <h2 class="display-4">PROJECT</h2>
+                            <p class="text-muted mb-4">tagline</p>
+                            <form action="{{ request.path }}" method="post">
+                                <div class="form-group mb-3">
+                                    <input id="inputEmail" type="email" name="InputEmail2" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input id="inputPassword" type="password" name="InputPassword2" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                                    <label for="customCheck1" class="custom-control-label">Remember password</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
+                                <!-- <div class="text-center d-flex justify-content-between mt-4"><p>Don't have an account ?  
+                                        <u>Sign up</u></p></div> -->
+                            </form>
+                            
+                        </div>
+                        </div>
+                   
+                </div><!-- End -->
+            </div>
+        </div><!-- End -->
+        
+
+    </div>
+</div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>

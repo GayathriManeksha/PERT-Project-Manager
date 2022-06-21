@@ -1,0 +1,29 @@
+
+body, html {
+  height: 100%;
+  background-color: azure;
+  background-size: cover;
+ /* background-image:url(pic1.jpg);*/
+}
+
+* {
+  box-sizing: border-box;
+ 
+}
+
+
+.login,
+.image {
+  min-height: 100vh;
+}
+
+.bg-image {
+  background-image:url(pic5.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+.bg-color{
+  background-color: azure;
+}
+
