@@ -10,8 +10,8 @@ from IPython.display import Image , display
 from datetime import date
 import os
 
-if not os.path.exists("static/images"):
-    os.mkdir("static/images")
+if not os.path.exists("app/static/images"):
+    os.mkdir("app/static/images")
 
 # tasks = [("A", {"Duration": 3}), 
 #          ("B", {"Duration": 5}), 
