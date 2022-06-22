@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>project</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon"
+    href="https://st.depositphotos.com/1368414/3476/i/600/depositphotos_34768023-stock-photo-reach-out.jpg"
+    type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="sign.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          Menu
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">NEW PROJECT</a>
+          <a class="dropdown-item" href="#">PROJECTS</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">{{name}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+
+
+    </ul>
+  </nav>
+
+  <div style="height:500px;">
+    <div class="col-lg-50 col-xl-4 mx-auto">
+      <form action="{{ request.path }}" method="post">
+        <p>Hi,{{name}}</p>
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example3">Project name</label>
+          <input type="text" id="form6Example3" name="projname" class="form-control" />
+        </div>
+
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example7">Project Description</label>
+          <textarea class="form-control" id="form6Example7" name="projdescr" rows="4"></textarea>
+
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">ADD TASK</button>
+      </form>
+
+    </div>
+  </div>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>

@@ -1,4 +1,5 @@
 from app import db
+from flask_login import UserMixin
 
 class Nodes(db.Model):  
    id = db.Column('id', db.Integer, primary_key = True)  
@@ -21,7 +22,7 @@ class Edges(db.Model):
       self.edgename=edgename
       self.nodeid=nodeid
 
-class User(db.Model):
+class User(UserMixin,db.Model):
    id=db.Column(db.Integer,primary_key=True)
    username=db.Column(db.String(20))
    passwrd=db.Column(db.String(20))
@@ -31,3 +32,14 @@ class User(db.Model):
       self.username=username
       self.passwrd=passwrd
       self.email=email
+
+class Projects(db.Model):
+   id = db.Column('id', db.Integer, primary_key = True)
+   proj_name=db.Column(db.String(10))
+   proj_descr=db.Column(db.String(20))
+   user_id=db.Column(db.Integer, db.ForeignKey(User.id))
+
+   def __init__(self,proj_name,proj_descr,user_id):
+      self.proj_name=proj_name
+      self.proj_descr=proj_descr
+      self.user_id=user_id
