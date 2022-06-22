@@ -35,6 +35,10 @@ def details():
    for user in users:
       print("username: ",user.username)
 
+@app.route("/addtask", methods = ['GET', 'POST'])
+def addtask():
+   return render_template("addtask.html")
+
 @app.route('/calculate')
 def cpm():
    get_nodes()
