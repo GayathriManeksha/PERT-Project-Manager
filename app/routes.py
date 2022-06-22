@@ -73,23 +73,17 @@ def cpm():
 
 @app.route('/addtask', methods = ['GET', 'POST'])
 def addtsk():
-   return render_template('addtask.html')
-
-@app.route('/add', methods = ['GET', 'POST'])  
-def addNode():  
    if request.method == 'POST':  
-    #   if not request.form['name'] or not request.form['salary'] or not request.form['age']:  
-    #      flash('Please enter all the fields', 'error')  
-    #   else:  
-         node=Nodes(request.form['nodename'],request.form['duration'],request.form['desc'])
-        #  node=Nodes('A',2)
-           
-         db.session.add(node)  
-         db.session.commit()  
-         flash('Record was successfully added')  
-         return redirect(url_for('list_nodes'))  
-   print("NOT POST")
-   return render_template('add_node.html')
+      node = Nodes(request.form['taskid'],request.form['taskdur'],request.form['taskdesc'])
+      try:
+         db.session.add(node)
+         db.session.commit()
+         return redirect('/addtask')
+      except:
+         return "Error adding to database"
+   else:      
+      return render_template('addtask.html',nodes = Nodes.query.all())
+
 
 @app.route('/addedge',methods=['GET','POST'])
 def addEdge():
@@ -106,10 +100,6 @@ def addEdge():
       return redirect(url_for('list_edges'))
    print("NOT POST")
    return render_template('add_edges.html',nodes=Nodes.query.all())
-
-@app.route('/list')  
-def list_nodes():  
-   return render_template('list_nodes.html', nodes = Nodes.query.all() )
 
 @app.route('/listedges')
 def list_edges():
