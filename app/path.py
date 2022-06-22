@@ -70,13 +70,13 @@ def critical_path(crit_path,dependencies,tasks):
     nx.draw(G, with_labels=True, pos=pos_nodes, node_color='lightblue', arrowsize=20)
 
     # set up the (arbitrary) positions of the durations labels (attributes):
-    pos_attrs = {node:(coord[0]+0.1, coord[1]+0.01) for node, coord in pos_nodes.items()}
+    pos_attrs = {node:(coord[0]+0.1, coord[1]+0.02) for node, coord in pos_nodes.items()}
     attrs = nx.get_node_attributes(G, 'Duration')
 
     # draw (write) the node attributes (duration)
     nx.draw_networkx_labels(G, pos=pos_attrs, labels=attrs)
 
-    plt.savefig("static/images/graph.jpg")
+    plt.savefig("app/static/images/graph.jpg")
     # set a little margin (padding) for the graph so the labels are not cut off
     plt.margins(0.1)
 
@@ -118,8 +118,9 @@ def critical_path(crit_path,dependencies,tasks):
     # again, leaving some margin so the labels are not cut off
     plt.margins(0.1)
     print("Pls wait creating images......")
-    plt.savefig("static/images/cpgraph.jpg")
+    plt.savefig("app/static/images/cpgraph.jpg")
     print("Images created successfully")
+    return [crit_path,proj_duration]
 
 #GANTT-CHART
 def gc(dependencies,crit_path):

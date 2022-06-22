@@ -3,7 +3,7 @@ from app.path  import add_nodes,add_edges,critical_path
 from app import app
 from app import db
 from app.database import User,Nodes, Edges,Projects
-from flask_login import login_user,login_required,current_user
+from flask_login import login_user,login_required,current_user,logout_user
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
@@ -65,11 +65,11 @@ def details():
       return redirect(url_for('addNode'))
    return render_template('profile.html',name=current_user.username)
 
-@app.route('/calculate')
-def cpm():
-   get_nodes()
-   flash('SUCCESS') 
-   return render_template('success.html')
+# @app.route('/calculate')
+# def cpm():
+#    get_nodes()
+#    flash('SUCCESS') 
+#    return render_template('success.html')
 
 @app.route('/addtask', methods = ['GET', 'POST'])
 def addtsk():
@@ -144,11 +144,21 @@ def del_edge():
          return redirect(url_for('list_edges'))
    return render_template('delete_edge.html')
 
+@app.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    """Logout the current user."""
+    user = current_user
+    user.authenticated = False
+    logout_user()
+    return redirect(url_for('home.html'))
 
 tasks=[]
 dependencies=[]
 crit_path=[]
-def get_nodes():
+result=[]
+
+def get_nodes(result):
    nodes=Nodes.query.all()
    for node in nodes:
       add_nodes(tasks,node.nodename,node.duration)
@@ -156,4 +166,12 @@ def get_nodes():
    for edge in edges:
       node1=Nodes.query.with_entities(Nodes.nodename).filter_by(id=edge.nodeid).first()
       add_edges(dependencies,node1[0],edge.edgename)
-   critical_path(crit_path,dependencies,tasks)
+   result=critical_path(crit_path,dependencies,tasks)
+   return result
+res=[]
+@app.route('/calculate')
+def cpm():
+   res=get_nodes(result)
+   flash('SUCCESS') 
+   print(res[0],res[1])
+   return render_template('success.html',result=res)
