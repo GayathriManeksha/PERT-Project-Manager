@@ -40,7 +40,7 @@
         <!-- Text input -->
         <div class="form-outline mb-4">
           <label class="form-label" for="form6Example3">Task id</label>
-          <input type="text" id="form6Example3" class="form-control" />
+          <input type="text" id="form6Example3" name = "taskid" class="form-control" />
         </div>
 
         <div class="form-outline mb-4">
@@ -67,33 +67,27 @@
 
 <!-----------table-->
 <div class="row">
-<div class="col-5 align-self-center mx-auto">        
+<div class="col-5 align-self-center mx-auto">
+  {% if nodes %}        
     <table class="table table-hover table-primary" >
       <thead class="thead-dark">
         <tr>
           <th>Task ID</th>
-          <th>Task Name</th>
+          <th>Task Duration</th>
           <th>Task Description</th>
         </tr>
       </thead>
       <tbody>
+      {% for node in nodes %}  
         <tr>
-          <td>A</td>
-          <td>hhhhdjd</td>
-          <td>yyyyyyy</td>
+          <td>{{ node.nodename }}</td>
+          <td>{{ node.duration }}</td>
+          <td>{{ node.task_descr }}</td>
         </tr>
-        <tr>
-          <td>B</td>
-          <td>manf</td>
-          <td>zzzz</td>
-        </tr>
-        <tr>
-          <td>C</td>
-          <td>prodct</td>
-          <td>edweiwd</td>
-        </tr>
+      {% endfor %}
       </tbody>
     </table>
+  {% endif %}
   </div>
   </div>  
 </div>
