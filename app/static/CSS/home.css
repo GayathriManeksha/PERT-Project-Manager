@@ -27,3 +27,26 @@ body, html {
   background-color: azure;
 }
 
+.add-task{
+ 
+  background-position: center center;
+  background-color: rgb(195, 220, 245,0.3);
+  background-size: cover;
+ 
+
+}
+
+.add-task-bg{
+  background-image:url(pic7.png);
+  background-size: cover;
+  
+
+}
+
+.add-task-nav{
+  background-position: center center;
+  background-color: rgb(195, 220, 245,0.75);
+  background-size: cover;
+
+}
+
