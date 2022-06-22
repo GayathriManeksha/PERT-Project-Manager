@@ -29,7 +29,7 @@ body, html {
 
 .add-task{
  
-  background-position: center center;
+  /* background-position: center center; */
   background-color: rgb(195, 220, 245,0.3);
   background-size: cover;
  
@@ -38,6 +38,7 @@ body, html {
 
 .add-task-bg{
   background-image:url(pic7.png);
+  height: 100%;
   background-size: cover;
   
 

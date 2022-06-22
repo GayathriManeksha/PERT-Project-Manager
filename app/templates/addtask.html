@@ -1,3 +1,104 @@
+{% extends "index.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='CSS/home.css')}}">
+{% endblock %}
+
+{% block body %}    
+    <div class="add-task-bg">
+    <nav class="navbar navbar-expand-sm navbar-light add-task-nav justify-content-center">
+        <!-- Links -->
+        <ul class="navbar-nav">
+             <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Menu
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">NEW PROJECT</a>
+              <a class="dropdown-item" href="#">PROJECTS</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Name</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+      
+         
+        </ul>
+      </nav>
+
+<!-----------------edit-->
+      <br>
+      <br>
+      <div class="col-5 mx-auto add-task">
+      <div class="container-fluid">
+        <div class="col-8 mx-auto my-auto">
+      <form class="align-self-baseline" method="post">
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form6Example3">Task id</label>
+          <input type="text" id="form6Example3" class="form-control" />
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example3">Task Duration</label>
+            <input type="text" id="form6Example3" name="taskdur" class="form-control" />
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form6Example3">Task Description</label>
+            <input type="text" id="form6Example3" name="taskdesc" class="form-control" />
+          </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">ADD TASKS</button>
+        <button type="submit" class="btn btn-primary btn-block mb-4">ADD SUCCESSORS</button>
+      </form>
+
+    </div>
+</div>
+</div>
+
+
+<br>
+
+<!-----------table-->
+<div class="row">
+<div class="col-5 align-self-center mx-auto">        
+    <table class="table table-hover table-primary" >
+      <thead class="thead-dark">
+        <tr>
+          <th>Task ID</th>
+          <th>Task Name</th>
+          <th>Task Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A</td>
+          <td>hhhhdjd</td>
+          <td>yyyyyyy</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>manf</td>
+          <td>zzzz</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>prodct</td>
+          <td>edweiwd</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>  
+</div>
+{% endblock %}
+=======
 <!DOCTYPE html>
 <html lang="en">
 
