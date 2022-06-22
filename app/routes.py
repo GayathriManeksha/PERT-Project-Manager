@@ -71,6 +71,10 @@ def cpm():
    flash('SUCCESS') 
    return render_template('success.html')
 
+@app.route('/addtask', methods = ['GET', 'POST'])
+def addtsk():
+   return render_template('addtask.html')
+
 @app.route('/add', methods = ['GET', 'POST'])  
 def addNode():  
    if request.method == 'POST':  
