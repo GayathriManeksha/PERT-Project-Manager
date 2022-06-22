@@ -2,7 +2,8 @@ from flask import Flask, request, flash, url_for, redirect, render_template
 from app.path  import add_nodes,add_edges,critical_path
 from app import app
 from app import db
-from app.database import User,Nodes, Edges
+from app.database import User,Nodes, Edges,Projects
+from flask_login import login_user,login_required,current_user
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
@@ -11,29 +12,58 @@ def signup():
       db.session.add(user)  
       db.session.commit()  
       flash('Record was successfully added') 
-      details()
+      print("Added success")
+      user_details()
+      return redirect(url_for('details'))
    print("NOT POST")
    return render_template('sign.html') 
 
+def user_details():
+   users=User.query.all()
+   for user in users:
+      print("username: ",user.username,user.passwrd,user.email)
+
 @app.route('/signin',methods=['GET','POST'])
 def signin():
+   user_details()
    if request.method == 'POST':
       e_mail=request.form.get("InputEmail2")
       print("email",e_mail)
-      password=User.query.with_entities(User.passwrd).filter_by(email=e_mail).first()
+      user=User.query.filter_by(email=e_mail).first()
+      # print("Password",user.passwrd)
+      if user is None:
+         return redirect(url_for('signup'))
       pass_word=request.form.get("InputPassword2")
-      if password is not None:
-         print("Password",password[0],pass_word)
-         if password[0]==pass_word:
-            print("Logged in successfully")
-            return render_template("base.html")
+      print("Password",user.passwrd,pass_word)
+      if user.passwrd==pass_word:
+         print("Logged in successfully")
+         login_user(user, remember=False)
+         return redirect(url_for('details'))
    print("NOT POST")
    return render_template('home.html')
 
+def clear_table():
+   edges=Edges.query.all()
+   for edge in edges:
+      db.session.delete(edge)
+   db.session.commit()
+
+   nodes=Nodes.query.all()
+   for node in nodes:
+      db.session.delete(node)
+   db.session.commit()
+
+@app.route('/profile',methods=['GET','POST'])
+@login_required
 def details():
-   users=User.query.all()
-   for user in users:
-      print("username: ",user.username)
+   print(current_user.username)
+   if request.method=='POST':
+      proj=Projects(request.form['projname'],request.form['projdescr'],current_user.id)
+      db.session.add(proj)
+      db.session.commit()
+      clear_table()
+      return redirect(url_for('addNode'))
+   return render_template('profile.html',name=current_user.username)
 
 @app.route('/calculate')
 def cpm():
