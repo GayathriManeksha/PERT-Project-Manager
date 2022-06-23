@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h3>Add new Employee</h3>
+    <hr />
+
+    {%- for category, message in get_flashed_messages(with_categories = true) %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {%- endfor %}
+
+    <form action="{{ request.path }}" method="post">
+        <label for="start_node">Start Node</label><br>
+        <input type="text" name="start_node" placeholder="Name of Start Node" /><br>
+
+        <label for="end_node">End Node</label><br>
+        <input type="text" name="end_node" placeholder="Name of End Node" /><br>
+
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+
+</html>
