@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "index.html" %}
 
-<head>
-    <title>project</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon"
-        href="https://st.depositphotos.com/1368414/3476/i/600/depositphotos_34768023-stock-photo-reach-out.jpg"
-        type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="signup.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='CSS/signup.css')}}">
+{% endblock %}
 
-<body>
-
+{% block body %}  
   <div class="bg-image"></div>
   <div class="container-fluid">
     <div class="row no-gutter">
@@ -65,18 +52,19 @@
                             
                             <h2 class="display-4 text-light">Sign Up</h2>
                             <p class="text-muted mb-4 text-light">Enter your details</p>
-                            <form>
+                            <form action="{{ request.path }}" method="post">
                                 <div class="form-group mb-3">
                                     <label for="username" class="text-light">Username</label>
-                                    <input id="inputEmail" type="email" placeholder="Username" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="InputUsername1">
+                                    <input id="inputEmail" id="exampleInputUsername1" name="InputUsername1" 
+                                            aria-describedby="user" placeholder="Username" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="InputUsername1">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="email" class="text-light">Email</label>
-                                    <input id="inputEmail" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="InputEmail1">
+                                    <input id="inputEmail" type="email" id="exampleInputEmail1" name="InputEmail1" aria-describedby="emailHelp" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="InputEmail1">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="pwd" class="text-light">Password</label>
-                                    <input id="inputPassword" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" name="InputPassword1">
+                                    <input id="inputPassword" type="password" id="exampleInputPassword1" name="InputPassword1" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" name="InputPassword1">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm text-light">Sign Up</button>
                             </form>
@@ -93,14 +81,4 @@
 </div>
 
 
-
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-</body>
+{% endblock %}
