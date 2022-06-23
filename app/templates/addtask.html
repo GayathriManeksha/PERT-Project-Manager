@@ -17,7 +17,7 @@
             </a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">NEW PROJECT</a>
-              <a class="dropdown-item" href="#">PROJECTS</a>
+              <a class="dropdown-item" href="{{url_for('listprojects')}}">PROJECTS</a>
             </div>
           </li>
           
@@ -30,7 +30,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
          <li class="nav-item">
-           <a class="nav-link py-0" href="#">Logout</a>
+           <a class="nav-link py-0" href="{{url_for('logout')}}">Logout</a>
          </li>
        </ul>
         
@@ -129,7 +129,7 @@
                     </div>
                     </div>
                     <div class="text-center">
-                    <button type="submit" class="btn btn-light mb-4 button-clr">Calculate</button>
+                    <button type="submit" class="btn btn-light mb-4 button-clr"><a href="{{url_for('cpm',proj_id=proj_id)}}">Calculate</a></button>
                     </div>
 
             </div>

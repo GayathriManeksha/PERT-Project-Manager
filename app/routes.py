@@ -104,8 +104,14 @@ def addtsk(proj_id):
       else:
          return redirect(url_for('addEdge',proj_id=proj_id))
    else:      
-      return render_template('addtask.html',nodes = Nodes.query.filter_by(proj_id=proj_id).all())
+      return render_template('addtask.html',nodes = Nodes.query.filter_by(proj_id=proj_id).all(),proj_id=proj_id)
 
+@app.route('/listprojects')
+def listprojects():
+   projects=Projects.query.filter_by(user_id=current_user.id).all()
+   for project in projects:
+      print(project.proj_name,project.proj_descr,project.user_id)
+   return render_template('listprojects.html',projects=projects)
 
 @app.route('/listedges')
 def list_edges():
