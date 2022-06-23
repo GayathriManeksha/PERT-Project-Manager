@@ -40,7 +40,7 @@ def signin():
          login_user(user, remember=False)
          return redirect(url_for('details'))
    print("NOT POST")
-   return render_template('home.html')
+   return render_template('signin.html')
 
 def clear_table():
    edges=Edges.query.all()
