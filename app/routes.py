@@ -6,6 +6,10 @@ from app import db
 from app.database import User,Nodes, Edges,Projects
 from flask_login import login_user,login_required,current_user,logout_user
 
+@app.route('/')
+def home():
+   return render_template('home.html')
+
 @app.route('/signup',methods=['GET','POST'])
 def signup():
    if request.method == 'POST':
