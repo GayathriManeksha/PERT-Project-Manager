@@ -1,3 +1,4 @@
+import email
 from flask import Flask, request, flash, url_for, redirect, render_template  
 from app.path  import add_nodes,add_edges,critical_path
 from app import app
@@ -30,7 +31,6 @@ def signin():
       e_mail=request.form.get("InputEmail2")
       print("email",e_mail)
       user=User.query.filter_by(email=e_mail).first()
-      # print("Password",user.passwrd)
       if user is None:
          return redirect(url_for('signup'))
       pass_word=request.form.get("InputPassword2")
