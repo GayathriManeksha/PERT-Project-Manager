@@ -1,0 +1,33 @@
+body, html {
+     background-image:url(graphbg.png);
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+    /* background-color: #f3fbfb;
+    background-image: linear-gradient(180deg, #f3fbfb 0%, #bae8e8 33%, #ffd803 66%, #272343 100%); */
+    
+    
+  }
+
+  .navbaar{
+    font-size: 120%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-display: "block";
+    font-weight: 800;
+    color: aqua;
+
+}
+
+.bg{
+    background-image: url(pic11.png);
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+}
+
+.td {
+    height: 50px;
+    vertical-align: middle;
+  }
