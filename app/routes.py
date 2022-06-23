@@ -90,28 +90,22 @@ def addtsk(proj_id):
             return "Error adding to database"
       elif request.form.get('delete')=='delete':
          return redirect('/delete',proj_id=proj_id)
+      elif request.form.get('addedge'):
+         node_is=request.form['edge']
+         edges_are=request.form.getlist("edge_keys")
+         node_id1=Nodes.query.with_entities(Nodes.id).filter_by(nodename=node_is,proj_id=proj_id).first()
+         for e in edges_are:
+            node_id2=Nodes.query.with_entities(Nodes.id).filter_by(nodename=e).first()
+            edge=Edges(node_id2[0],node_id1[0])
+            db.session.add(edge)
+            db.session.commit()
+         flash("Edges added successfully")
+         return redirect(url_for('list_edges'))
       else:
          return redirect(url_for('addEdge',proj_id=proj_id))
    else:      
       return render_template('addtask.html',nodes = Nodes.query.filter_by(proj_id=proj_id).all())
 
-
-@app.route('/addedge/<proj_id>',methods=['GET','POST'])
-def addEdge(proj_id):
-   if request.method=='POST':
-      node_is=request.form['edge']
-      edges_are=request.form.getlist("edge_keys")
-      node_id1=Nodes.query.with_entities(Nodes.id).filter_by(nodename=node_is,proj_id=proj_id).first()
-      for e in edges_are:
-        node_id2=Nodes.query.with_entities(Nodes.id).filter_by(nodename=e).first()
-        edge=Edges(node_id2[0],node_id1[0])
-        db.session.add(edge)
-        db.session.commit()
-
-      flash("Edges added successfully")
-      return redirect(url_for('list_edges'))
-   print("NOT POST")
-   return render_template('add_edges.html',nodes=Nodes.query.filter_by(proj_id=proj_id).all())
 
 @app.route('/listedges')
 def list_edges():
