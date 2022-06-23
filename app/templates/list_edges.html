@@ -26,14 +26,13 @@
         <tbody>
             {% for edge in edges %}
             <tr>
-                <td>{{ edge.nodeid }}</td>
-                <td>{{ edge.edgename }}</td>
+                <td>{{ edge.nodeid1 }}</td>
+                <td>{{ edge.nodeid2 }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <br><br>
-    <!-- <a href="{{ url_for('addNode') }}">Add New Employee</a> -->
 </body>
 
 </html>

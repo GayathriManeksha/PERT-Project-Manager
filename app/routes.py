@@ -61,8 +61,8 @@ def details():
       proj=Projects(request.form['projname'],request.form['projdescr'],current_user.id)
       db.session.add(proj)
       db.session.commit()
-      clear_table()
-      return redirect(url_for('addNode'))
+      # clear_table()
+      return redirect(url_for('addtsk',proj_id=proj.id))
    return render_template('profile.html',name=current_user.username)
 
 # @app.route('/calculate')
@@ -71,63 +71,78 @@ def details():
 #    flash('SUCCESS') 
 #    return render_template('success.html')
 
-@app.route('/addtask', methods = ['GET', 'POST'])
-def addtsk():
+# @app.route('/listprojects')
+# def listprojects():
+#    projects=Projects.query.all()
+#    for project in projects:
+#       print(project.proj_name,project.proj_descr,project.user_id)
+
+@app.route('/addtask/<proj_id>', methods = ['GET', 'POST'])
+def addtsk(proj_id):
    if request.method == 'POST':  
-      node = Nodes(request.form['taskid'],request.form['taskdur'],request.form['taskdesc'])
-      try:
-         db.session.add(node)
-         db.session.commit()
-         return redirect('/addtask')
-      except:
-         return "Error adding to database"
+      if request.form.get('addtasks')=='addtasks':
+         node = Nodes(request.form['taskid'],request.form['taskdur'],request.form['taskdesc'],proj_id)
+         try:
+            db.session.add(node)
+            db.session.commit()
+            return redirect(url_for('addtsk',proj_id=proj_id))
+         except:
+            return "Error adding to database"
+      elif request.form.get('delete')=='delete':
+         return redirect('/delete',proj_id=proj_id)
+      else:
+         return redirect(url_for('addEdge',proj_id=proj_id))
    else:      
-      return render_template('addtask.html',nodes = Nodes.query.all())
+      return render_template('addtask.html',nodes = Nodes.query.filter_by(proj_id=proj_id).all())
 
 
-@app.route('/addedge',methods=['GET','POST'])
-def addEdge():
+@app.route('/addedge/<proj_id>',methods=['GET','POST'])
+def addEdge(proj_id):
    if request.method=='POST':
       node_is=request.form['edge']
       edges_are=request.form.getlist("edge_keys")
-      node_id=Nodes.query.with_entities(Nodes.id).filter_by(nodename=node_is).first()
+      node_id1=Nodes.query.with_entities(Nodes.id).filter_by(nodename=node_is,proj_id=proj_id).first()
       for e in edges_are:
-        edge=Edges(e,node_id[0])
+        node_id2=Nodes.query.with_entities(Nodes.id).filter_by(nodename=e).first()
+        edge=Edges(node_id2[0],node_id1[0])
         db.session.add(edge)
         db.session.commit()
 
       flash("Edges added successfully")
       return redirect(url_for('list_edges'))
    print("NOT POST")
-   return render_template('add_edges.html',nodes=Nodes.query.all())
+   return render_template('add_edges.html',nodes=Nodes.query.filter_by(proj_id=proj_id).all())
 
 @app.route('/listedges')
 def list_edges():
    return render_template('list_edges.html',edges=Edges.query.all())
 
-@app.route('/delete',methods=['GET','POST'])
-def del_node():
+@app.route('/delete/<proj_id>',methods=['GET','POST'])
+def del_node(proj_id):
    if request.method=='POST':
       if not request.form['node_name']:
         flash('Please enter the name to delete','error')
       else:
-         node_id=Nodes.query.with_entities(Nodes.id).filter_by(nodename=request.form['node_name']).first()  
-         end_nodes=Edges.query.filter_by(edgename=request.form['node_name']).all() #delete the edges with end edge is node
-         for n in end_nodes:
-            db.session.delete(n)
+         node_id=Nodes.query.with_entities(Nodes.id).filter_by(nodename=request.form['node_name'],proj_id=proj_id).first() 
+
+         if node_id is not None: 
+            end_nodes=Edges.query.filter_by(nodeid2=node_id[0]).all() #delete the edges with end edge is node
+            for n in end_nodes:
+               db.session.delete(n)
          
          print("NODE_ID",node_id)
 
          if node_id is not None:
-            start_nodes=Edges.query.filter_by(nodeid=node_id[0]).all() #delete the edges with start edge is node
+            start_nodes=Edges.query.filter_by(nodeid1=node_id[0]).all() #delete the edges with start edge is node
             for n in start_nodes:
                db.session.delete(n)
+
          node=Nodes.query.filter_by(nodename=request.form['node_name']).first() #deleted the node from Nodes
          if node is not None:
             db.session.delete(node)
          db.session.commit()
          flash("Record was successfully deleted")
-         return redirect(url_for('list_nodes'))
+         return redirect(url_for('addtsk',proj_id=proj_id))
    return render_template('delete_node.html')
 
 @app.route('/deleteedge',methods=['GET','POST'])
@@ -136,8 +151,9 @@ def del_edge():
       if not request.form['start_node']:
         flash('Please enter the node1 to delete','error') 
       else:
-         node_id=Nodes.query.with_entities(Nodes.id).filter_by(nodename=request.form['start_node']).first() 
-         edge_id=Edges.query.filter_by(nodeid=node_id[0],edgename=request.form['end_node']).first()
+         node_id1=Nodes.query.with_entities(Nodes.id).filter_by(nodename=request.form['start_node']).first()
+         node_id2=Nodes.query.with_entities(Nodes.id).filter_by(nodename=request.form['end_node']).first() 
+         edge_id=Edges.query.filter_by(nodeid1=node_id1[0],nodeid2=node_id2[0]).first()
          db.session.delete(edge_id)
          db.session.commit()
          flash("Record deleted successfully")
@@ -151,27 +167,33 @@ def logout():
     user = current_user
     user.authenticated = False
     logout_user()
-    return redirect(url_for('home.html'))
+    return redirect(url_for('signin'))
 
 tasks=[]
 dependencies=[]
 crit_path=[]
 result=[]
 
-def get_nodes(result):
-   nodes=Nodes.query.all()
+def get_nodes(result,proj_id):
+   nodes=Nodes.query.filter_by(proj_id=proj_id).all()
    for node in nodes:
       add_nodes(tasks,node.nodename,node.duration)
-   edges=Edges.query.all()
-   for edge in edges:
-      node1=Nodes.query.with_entities(Nodes.nodename).filter_by(id=edge.nodeid).first()
-      add_edges(dependencies,node1[0],edge.edgename)
+      edges=Edges.query.filter_by(nodeid1=node.id).all()
+      for edge in edges:
+         node2=Nodes.query.with_entities(Nodes.nodename).filter_by(id=edge.nodeid2).first()
+         add_edges(dependencies,node.nodename,node2[0])
+   # edges=Edges.query.all()
+   # for edge in edges:
+   #    node1=Nodes.query.with_entities(Nodes.nodename).filter_by(id=edge.nodeid).first()
+   #    add_edges(dependencies,node1[0],edge.edgename)
+
    result=critical_path(crit_path,dependencies,tasks)
    return result
+
 res=[]
-@app.route('/calculate')
-def cpm():
-   res=get_nodes(result)
+@app.route('/calculate/<proj_id>')
+def cpm(proj_id):
+   res=get_nodes(result,proj_id)
    flash('SUCCESS') 
    print(res[0],res[1])
    return render_template('success.html',result=res)
