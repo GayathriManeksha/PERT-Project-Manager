@@ -6,6 +6,10 @@ from app import db
 from app.database import User,Nodes, Edges,Projects
 from flask_login import login_user,login_required,current_user,logout_user
 
+@app.route('/')
+def home():
+   return render_template('home.html')
+
 @app.route('/signup',methods=['GET','POST'])
 def signup():
    if request.method == 'POST':
@@ -17,7 +21,7 @@ def signup():
       user_details()
       return redirect(url_for('details'))
    print("NOT POST")
-   return render_template('sign.html') 
+   return render_template('signup.html') 
 
 def user_details():
    users=User.query.all()
@@ -196,4 +200,4 @@ def cpm(proj_id):
    res=get_nodes(result,proj_id)
    flash('SUCCESS') 
    print(res[0],res[1])
-   return render_template('success.html',result=res)
+   return render_template('calc.html',result=res)

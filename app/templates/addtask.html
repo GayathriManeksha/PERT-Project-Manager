@@ -16,8 +16,8 @@
               Menu
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">NEW PROJECT</a>
-              <a class="dropdown-item" href="{{url_for('listprojects')}}">PROJECTS</a>
+              <a class="dropdown-item" href="{{ url_for('details') }}">NEW PROJECT</a>
+              <a class="dropdown-item" href="{{ url_for('listprojects') }}">PROJECTS</a>
             </div>
           </li>
           
@@ -25,7 +25,7 @@
             <a class="nav-link py-0" href="#">Name</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link py-0" href="#">Home</a>
+            <a class="nav-link py-0" href="{{ url_for('details') }}">Home</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -109,7 +109,7 @@
                 <div class="row">
                     <div class="col-10 align-self-center mx-auto">        
                         <table class="table table-hover table-text"  >
-                        < <thead class="thead-dark">
+                         <thead class="thead-dark">
                           <tr>
                             <th>Task ID</th>
                             <th>Task Duration</th>
@@ -129,7 +129,7 @@
                     </div>
                     </div>
                     <div class="text-center">
-                    <button type="submit" class="btn btn-light mb-4 button-clr"><a href="{{url_for('cpm',proj_id=proj_id)}}">Calculate</a></button>
+                      <button type="submit" class="btn btn-light mb-4 button-clr" onclick="location.href = '{{url_for('cpm',proj_id=proj_id)}}';">Calculate</button>
                     </div>
 
             </div>
