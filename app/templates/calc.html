@@ -29,9 +29,35 @@
           <!-- <img src="../images/cpgraph.jpg"> -->
           <image src="{{url_for('static',filename = 'images/cpgraph.jpg')}}">
             <br>
-            <h3>{{result[0],result[1]}}</h3>
+            <h3>The Critical Path {{result[0]}}</h3>
+            <h3>Duration {{result[1]}}</h3>
+            <br>
         </div>
       </div>
-      
+      <div class="row">
+        <div class="col-4 align-self-center mx-auto">
+      <div class="col-12 col-md-6 align-self-center">
+        <!-----------table-->
+            <table class="table table-hover table-text">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Task ID</th>
+                  <th>Task Duration</th>
+                  <th>Task Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for node in nodes %}
+                <tr>
+                  <td>{{ node.nodename }}</td>
+                  <td>{{ node.duration }}</td>
+                  <td>{{ node.task_descr }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
 {% endblock %}

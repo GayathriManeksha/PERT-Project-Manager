@@ -67,7 +67,8 @@ def details():
       db.session.commit()
       # clear_table()
       return redirect(url_for('addtsk',proj_id=proj.id))
-   return render_template('profile.html',name=current_user.username)
+   projects=Projects.query.filter_by(user_id=current_user.id).all()
+   return render_template('profile.html',name=current_user.username,projects=projects)
 
 # @app.route('/calculate')
 # def cpm():
@@ -104,7 +105,7 @@ def addtsk(proj_id):
             db.session.add(edge)
             db.session.commit()
          flash("Edges added successfully")
-         return redirect(url_for('list_edges'))
+         return redirect(url_for('addtsk',proj_id=proj_id))
       else:
          return redirect(url_for('addEdge',proj_id=proj_id))
    else:      
@@ -200,4 +201,5 @@ def cpm(proj_id):
    res=get_nodes(result,proj_id)
    flash('SUCCESS') 
    print(res[0],res[1])
-   return render_template('calc.html',result=res)
+   nodes=Nodes.query.filter_by(proj_id=proj_id).all()
+   return render_template('calc.html',result=res,nodes=nodes)

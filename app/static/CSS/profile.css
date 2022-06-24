@@ -1,0 +1,48 @@
+body, html {
+  background-repeat: no-repeat;
+  background-color: #243b67;
+  background-image: linear-gradient(315deg, #243b67 9%, #ce5dcf 64%, #c27dfc 82%, #eaebed 98%);
+  background-size: 100%;
+  background-size: auto;
+  
+    
+  }
+
+  .navbaar{
+    background-position: center center;
+    /* background-color: rgb(195, 220, 245,0.3); */
+    /* background-size: cover; */
+     font-size: 120%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-display: "block";
+    font-weight: 800;
+    /* color:white; */
+    font-display: "block";
+  
+  }
+
+  .button-clr{
+    background-color:#F7C9F7; /* Green */
+    transition-duration: 0.4s;
+    color:black;
+    border-radius: 12px;
+    /* padding: 12px 28px; */
+  }
+
+  .add-task{
+ 
+    background-position: center center;
+    background-color: rgb(194,125,252,0.3);
+    background-size: cover; 
+  }
+
+  .add-bg{
+    background-repeat: no-repeat;
+    /* background-color: #eff0f3;
+    background-image: linear-gradient(180deg, #eff0f3 0%, #abd1c6 24%, #f9bc60 49%, #004643 91%); */
+    background-color: #243b67;
+    background-image: linear-gradient(315deg, #243b67 9%, #ce5dcf 64%, #c27dfc 82%, #eaebed 98%);
+    background-size: 100%;
+    
+
+  }
