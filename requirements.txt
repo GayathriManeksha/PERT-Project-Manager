@@ -10,6 +10,7 @@ Flask-Login==0.6.1
 Flask-SQLAlchemy==2.5.1
 fonttools==4.33.3
 greenlet==1.1.2
+gunicorn==20.1.0
 ipython==8.4.0
 itsdangerous==2.1.2
 jedi==0.18.1
