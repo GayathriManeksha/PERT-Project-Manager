@@ -174,19 +174,22 @@ def logout():
     logout_user()
     return redirect(url_for('signin'))
 
-tasks=[]
-dependencies=[]
-crit_path=[]
+# tasks=[]
+# dependencies=[]
+# crit_path=[]
 result=[]
 
 def get_nodes(result,proj_id):
+   tasks=[]
+   dependencies=[]
+   crit_path=[]
    nodes=Nodes.query.filter_by(proj_id=proj_id).all()
    for node in nodes:
-      add_nodes(tasks,node.nodename,node.duration)
+      tasks=add_nodes(tasks,node.nodename,node.duration)
       edges=Edges.query.filter_by(nodeid1=node.id).all()
       for edge in edges:
          node2=Nodes.query.with_entities(Nodes.nodename).filter_by(id=edge.nodeid2).first()
-         add_edges(dependencies,node.nodename,node2[0])
+         dependencies=add_edges(dependencies,node.nodename,node2[0])
    # edges=Edges.query.all()
    # for edge in edges:
    #    node1=Nodes.query.with_entities(Nodes.nodename).filter_by(id=edge.nodeid).first()

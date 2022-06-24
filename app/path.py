@@ -25,6 +25,7 @@ def add_nodes(tasks,key,value):
     item=(key,{"Duration":value})
     # item[key]={"Duration":value}
     tasks.append(item)
+    return tasks
 
 # add_nodes(tasks,"A",3)
 # add_nodes(tasks,"B",5)
@@ -43,6 +44,7 @@ def add_nodes(tasks,key,value):
 def add_edges(dependencies,edge1,edge2):
     item=(edge1,edge2)
     dependencies.append(item)
+    return dependencies
 
 # add_edges(dependencies,"A","C")
 # add_edges(dependencies,"B","C")
@@ -65,7 +67,7 @@ def critical_path(crit_path,dependencies,tasks):
     #             "C": (2, 2), 
     #             "D": (3, 3), 
     #             "E": (4, 2)}
-
+    plt.clf()
     pos_nodes=nx.planar_layout(G)
 
     # draw the nodes
